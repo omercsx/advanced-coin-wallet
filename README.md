@@ -1,2 +1,2 @@
 # advanced-coin-wallet
- Advance Coin Wallet for Final Project
+ Advanced Coin Wallet for Final Project
