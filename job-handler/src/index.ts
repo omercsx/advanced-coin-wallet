@@ -6,13 +6,6 @@ import Wallet from "./models/wallet";
 import { parseExpression } from "cron-parser";
 import { setTimeout } from "timers/promises";
 
-async function jobLoop() {
-  while (true) {
-    await checkAndRunRecurringJobs();
-    await setTimeout(10000);
-  }
-}
-
 async function main() {
   console.log("db", "Connecting to MongoDB...");
   await ConnectionHelper.connect();
@@ -20,6 +13,13 @@ async function main() {
 
   console.log("job", "Starting job loop...");
   await jobLoop();
+}
+
+async function jobLoop() {
+  while (true) {
+    await checkAndRunRecurringJobs();
+    await setTimeout(10000);
+  }
 }
 
 async function checkAndRunRecurringJobs() {
@@ -33,8 +33,6 @@ async function checkAndRunRecurringJobs() {
 
   await Promise.all(jobPromises);
 }
-
-main();
 
 async function getJobsToRun() {
   const now = new Date();
@@ -95,3 +93,5 @@ async function handleRecurringJob(job: IRecurringJobDocument) {
   await job.save();
   return true;
 }
+
+main();
