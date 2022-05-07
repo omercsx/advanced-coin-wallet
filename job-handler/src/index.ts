@@ -4,11 +4,12 @@ import { IRecurringJobDocument, RecurringJobModel } from "./models/recurringJob"
 import UserCrypto from "./models/userCrypto";
 import Wallet from "./models/wallet";
 import { parseExpression } from "cron-parser";
+import { setTimeout } from "timers/promises";
 
 async function jobLoop() {
-  // TODO run at every 10 seconds
   while (true) {
     await checkAndRunRecurringJobs();
+    await setTimeout(10000);
   }
 }
 
