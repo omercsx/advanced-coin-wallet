@@ -88,9 +88,10 @@ async function handleRecurringJob(job: IRecurringJobDocument) {
   await wallet.save();
 
   const parsed = parseExpression(job.schedule);
-  let nextRunAt = parsed.next().toDate();
+  const nextRunAt = parsed.next().toDate();
 
   job.beingTriggered = false;
   job.nextRunAt = nextRunAt;
   await job.save();
+  return true;
 }
