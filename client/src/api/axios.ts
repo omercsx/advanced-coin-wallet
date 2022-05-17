@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "/api",
+  baseURL: "https://advanced-coin-wallet-f4nvx.ondigitalocean.app/api",
   withCredentials: true,
 });

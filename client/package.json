@@ -1,66 +1,67 @@
 {
-	"name": "client",
-	"version": "0.1.0",
-	"proxy": "https://coin-wallet-8riwk.ondigitalocean.app",
-	"private": true,
-	"dependencies": {
-		"@mantine/core": "^4.0.8",
-		"@mantine/dates": "^4.0.8",
-		"@mantine/form": "^4.0.8",
-		"@mantine/hooks": "^4.0.8",
-		"@mantine/modals": "^4.0.8",
-		"@nivo/line": "^0.79.1",
-		"@nivo/pie": "^0.79.1",
-		"@reduxjs/toolkit": "^1.8.0",
-		"@testing-library/jest-dom": "^5.14.1",
-		"@testing-library/react": "^12.0.0",
-		"@testing-library/user-event": "^13.2.1",
-		"@types/jest": "^27.0.1",
-		"@types/node": "^16.7.13",
-		"@types/react": "^17.0.20",
-		"@types/react-dom": "^17.0.9",
-		"axios": "^0.26.1",
-		"dayjs": "^1.11.0",
-		"dotenv": "^16.0.0",
-		"express": "^4.17.3",
-		"moment": "^2.29.1",
-		"mongoose": "^6.2.8",
-		"react": "^17.0.2",
-		"react-dom": "^17.0.2",
-		"react-hot-toast": "^2.2.0",
-		"react-router-dom": "6",
-		"react-scripts": "5.0.0",
-		"redux-devtools-extension": "^2.13.9",
-		"typescript": "^4.4.2",
-		"web-vitals": "^2.1.0"
-	},
-	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject"
-	},
-	"eslintConfig": {
-		"extends": [
-			"react-app",
-			"react-app/jest"
-		]
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	},
-	"devDependencies": {
-		"autoprefixer": "^10.4.4",
-		"postcss": "^8.4.12",
-		"tailwindcss": "^3.0.23"
-	}
+  "name": "client",
+  "version": "0.1.0",
+  "proxy": "http://localhost:8182",
+  "private": true,
+  "dependencies": {
+    "@mantine/core": "^4.0.8",
+    "@mantine/dates": "^4.0.8",
+    "@mantine/form": "^4.0.8",
+    "@mantine/hooks": "^4.0.8",
+    "@mantine/modals": "^4.0.8",
+    "@nivo/line": "^0.79.1",
+    "@nivo/pie": "^0.79.1",
+    "@reduxjs/toolkit": "^1.8.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^17.0.20",
+    "@types/react-dom": "^17.0.9",
+    "axios": "^0.26.1",
+    "dayjs": "^1.11.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "moment": "^2.29.1",
+    "mongoose": "^6.2.8",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hot-toast": "^2.2.0",
+    "react-icons": "^4.3.1",
+    "react-router-dom": "6",
+    "react-scripts": "5.0.0",
+    "redux-devtools-extension": "^2.13.9",
+    "typescript": "^4.4.2",
+    "web-vitals": "^2.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.4",
+    "postcss": "^8.4.12",
+    "tailwindcss": "^3.0.23"
+  }
 }
