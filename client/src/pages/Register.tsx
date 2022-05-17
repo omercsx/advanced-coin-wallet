@@ -12,11 +12,11 @@ export const Register = () => {
 
   const handleSubmit = async (email: string, fullName: string, password: string) => {
     try {
-      const data = { email, password };
+      const data = { email: email, fullName: fullName, password: password };
       const response = await axios.post("/auth/register", data);
+      console.log(response);
       if (response?.status === 201 && response?.data?.status) {
-        dispatch({ type: ACTIONS.USER_LOGGED_IN, payload: response?.data?.data });
-        toast.success(response?.data?.message);
+        toast.success(response?.data?.message, { duration: 3000 });
         navigate("/login");
       } else {
         dispatch({ type: ACTIONS.USER_LOGGED_OUT });
@@ -48,7 +48,7 @@ export const Register = () => {
         onSubmit={form.onSubmit((values) => handleSubmit(values?.email, values?.fullName, values?.password))}
       >
         <Card shadow='sm' p='xl'>
-          <Card.Section p='xl'>
+          <Card.Section p='xl' className='flex w-full items-center justify-center'>
             <Text size='xl'>Welcome to Coin Wallet Register Page</Text>
           </Card.Section>
           <Card.Section p='xl'>

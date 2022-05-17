@@ -10,10 +10,13 @@ import { useNavigate } from "react-router-dom";
 export const Navbar = () => {
   const { state: auth, dispatch: authDispatch } = useAuth();
   const navigate = useNavigate();
+  let email = "";
+  let fullName = "";
+  email = auth?.user?.email;
+  fullName = auth?.user?.fullName;
 
-  const { email, fullName } = auth?.user;
+  // if there is 2 word split full name into first and last name and set initials
 
-  // split full name into first and last name and set initials
   const [firstName, lastName] = fullName?.split(" ");
 
   const handleLogout = async () => {
@@ -49,19 +52,19 @@ export const Navbar = () => {
             trigger='hover'
             delay={500}
             control={
-              <Avatar src={null} alt={fullName} color='red'>
-                {firstName[0]}
-                {lastName[0]}
+              <Avatar src={null} alt={fullName} color='indigo'>
+                {fullName?.includes(" ")
+                  ? fullName?.split(" ")[0][0].toUpperCase() + fullName?.split(" ")[1][0].toUpperCase()
+                  : fullName?.[0].toUpperCase()}
               </Avatar>
             }
           >
             <Menu.Label>User Informations</Menu.Label>
-
             <Menu.Item>
               <Text>{fullName}</Text>
             </Menu.Item>
             <Menu.Item>
-              <Text>{email}</Text>
+              <Text> {email}</Text>
             </Menu.Item>
           </Menu>
 

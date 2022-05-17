@@ -1,6 +1,8 @@
 import { useForm } from "@mantine/form";
 import { PasswordInput, TextInput, Text, Card } from "@mantine/core";
 import axios from "../api/axios";
+import { BiRocket } from "react-icons/bi";
+
 import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
@@ -46,8 +48,8 @@ export const Login = () => {
         onSubmit={form.onSubmit((values) => handleSubmit(values?.email, values?.password))}
       >
         <Card shadow='sm' p='xl'>
-          <Card.Section p='xl'>
-            <Text size='xl'>Welcome to Coin Wallet Login Page</Text>
+          <Card.Section p='xl' className='flex w-full items-center justify-evenly gap-2'>
+            <Text size='xl'>Welcome to Coin Wallet Login Page</Text> <BiRocket size={"1.4rem"} />
           </Card.Section>
           <Card.Section p='xl'>
             <TextInput required size='lg' label='Email' placeholder='your@email.com' {...form.getInputProps("email")} />
