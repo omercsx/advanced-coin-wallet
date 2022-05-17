@@ -5,6 +5,7 @@ import UserCrypto from "./models/userCrypto";
 import Wallet from "./models/wallet";
 import { parseExpression } from "cron-parser";
 import { setTimeout } from "timers/promises";
+import ChangeRecordModel from "./models/changeRecord";
 
 async function main() {
   console.log("db", "Connecting to MongoDB...");
@@ -84,6 +85,11 @@ async function handleRecurringJob(job: IRecurringJobDocument) {
   }
 
   await wallet.save();
+  await ChangeRecordModel.create({
+    eventDate: new Date(),
+    value: wallet.balance,
+    walletId: wallet._id,
+  });
 
   const parsed = parseExpression(job.schedule);
   const nextRunAt = parsed.next().toDate();
