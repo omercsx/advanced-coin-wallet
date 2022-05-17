@@ -1,5 +1,5 @@
 import { useForm } from "@mantine/form";
-import { PasswordInput, Group, TextInput, Text, Card } from "@mantine/core";
+import { PasswordInput, TextInput, Text, Card } from "@mantine/core";
 import axios from "../api/axios";
 import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
@@ -14,8 +14,9 @@ export const Login = () => {
     try {
       const data = { email, password };
       const response = await axios.post("/auth/login", data);
+
       if (response?.status === 200 && response?.data?.status) {
-        dispatch({ type: ACTIONS.USER_LOGGED_IN, payload: response?.data?.user });
+        dispatch({ type: ACTIONS.USER_LOGGED_IN, payload: response?.data?.data });
         navigate("/");
       } else {
         dispatch({ type: ACTIONS.USER_LOGGED_OUT });

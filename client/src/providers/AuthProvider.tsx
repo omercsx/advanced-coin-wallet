@@ -25,7 +25,7 @@ const reducer = (state: IState, action: any) => {
     case ACTIONS.USER_LOGGED_OUT:
       return defaultState;
     default:
-      return defaultState;
+      return state;
   }
 };
 

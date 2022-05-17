@@ -1,5 +1,5 @@
 import { useForm } from "@mantine/form";
-import { PasswordInput, Group, TextInput, Text, Card } from "@mantine/core";
+import { PasswordInput, TextInput, Text, Card } from "@mantine/core";
 import axios from "../api/axios";
 import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
@@ -10,12 +10,12 @@ export const Register = () => {
   const navigate = useNavigate();
   const { dispatch } = useAuth();
 
-  const handleSubmit = async (email: string, password: string) => {
+  const handleSubmit = async (email: string, fullName: string, password: string) => {
     try {
       const data = { email, password };
       const response = await axios.post("/auth/register", data);
       if (response?.status === 201 && response?.data?.status) {
-        dispatch({ type: ACTIONS.USER_LOGGED_IN, payload: response?.data?.user });
+        dispatch({ type: ACTIONS.USER_LOGGED_IN, payload: response?.data?.data });
         toast.success(response?.data?.message);
         navigate("/login");
       } else {
@@ -32,9 +32,10 @@ export const Register = () => {
     }
   };
   const form = useForm({
-    initialValues: { email: "", password: "secret", confirmPassword: "sevret" },
+    initialValues: { email: "", fullName: "", password: "secret", confirmPassword: "sevret" },
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+      fullName: (value) => (value.length > 0 ? null : "Full name is required"),
       password: (value: string) => (value.length > 4 ? null : "Password must be at least 4 characters"),
       confirmPassword: (value, values) => (value !== values.password ? "Passwords did not match" : null),
     },
@@ -44,7 +45,7 @@ export const Register = () => {
       <Toaster position='top-right' reverseOrder={false} />
       <form
         className='flex flex-col w-full max-w-lg px-8 py-10 space-y-5 bg-peyk-600'
-        onSubmit={form.onSubmit((values) => handleSubmit(values?.email, values?.password))}
+        onSubmit={form.onSubmit((values) => handleSubmit(values?.email, values?.fullName, values?.password))}
       >
         <Card shadow='sm' p='xl'>
           <Card.Section p='xl'>
@@ -52,6 +53,15 @@ export const Register = () => {
           </Card.Section>
           <Card.Section p='xl'>
             <TextInput required size='lg' label='Email' placeholder='your@email.com' {...form.getInputProps("email")} />
+          </Card.Section>
+          <Card.Section p='xl'>
+            <TextInput
+              required
+              size='lg'
+              label='Full Name'
+              placeholder='Omer Cagri...'
+              {...form.getInputProps("fullName")}
+            />
           </Card.Section>
           <Card.Section p='xl'>
             <div className='flex flex-col gap-8'>

@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-
-import axios from "./api/axios";
 import { Routes, Route, Navigate } from "react-router-dom";
+
 import { Login } from "./pages/Login";
-import { Register } from "./pages/Register";
 import useAuth from "./hooks/useAuth";
+import { useEffect, useState } from "react";
+import axios from "./api/axios";
 import { ACTIONS } from "./providers/AuthProvider";
 import { Loader } from "@mantine/core";
 import { NavbarLayout } from "./components/NavbarLayout";
+import { Register } from "./pages/Register";
 import { Main } from "./pages/Main";
 
 function App() {
-  const { state: auth, dispatch: authDispatch } = useAuth();
+  const { state: auth, dispatch } = useAuth();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ function App() {
       try {
         const response = await axios.get("/auth/me");
         if (response?.status === 200 && response?.data?.status) {
-          authDispatch({ type: ACTIONS.USER_LOGGED_IN, payload: response?.data?.user });
+          dispatch({ type: ACTIONS.USER_LOGGED_IN, payload: response?.data?.data });
         }
       } catch (e) {
       } finally {
