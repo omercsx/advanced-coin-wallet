@@ -6,5 +6,6 @@ const router = express.Router();
 const walletController = new WalletController();
 
 router.get("/", Auth.authenticate, walletController.Get);
+router.get("/dashboard", Auth.authenticate, walletController.Dashboard);
 
 export default router;
