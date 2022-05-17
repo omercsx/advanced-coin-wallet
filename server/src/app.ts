@@ -52,7 +52,7 @@ export class Api {
         cookie: {
           maxAge: 1000 * 60 * 60 * 2,
           sameSite: "none",
-          secure: true,
+          secure: process.env.NODE_ENV === "production",
         },
         proxy: true,
       })
