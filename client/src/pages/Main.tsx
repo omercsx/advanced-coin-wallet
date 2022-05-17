@@ -1,5 +1,5 @@
 import React from "react";
 
 export const Main = () => {
-  return <div>Main</div>;
+  return <div className='flex flex-col '>Main</div>;
 };

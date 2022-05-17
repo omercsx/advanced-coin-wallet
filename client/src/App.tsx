@@ -30,7 +30,7 @@ function App() {
   }, []);
 
   return loading ? (
-    <div className='flex items-center justify-center w-screen h-screen'>
+    <div className=''>
       <Loader />
     </div>
   ) : (
