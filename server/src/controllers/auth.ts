@@ -30,7 +30,9 @@ export class AuthController {
 
       request.session.userId = existingUser._id.toString();
 
-      return response.status(200).json(new SuccessResult("Login successful", null));
+      return response
+        .status(200)
+        .json(new SuccessResult("Login successful", { email: existingUser.email, fullName: existingUser.fullName }));
     } catch (error: any) {
       if (error.isJoi) {
         return response.status(400).send(new FailureResult("Validation error: " + error.message));
