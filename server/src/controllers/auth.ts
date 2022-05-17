@@ -43,9 +43,9 @@ export class AuthController {
 
   public async register(request: Request, response: Response) {
     try {
-      const { email, password } = request.body;
+      const { email, password, fullName } = request.body;
 
-      await userRegisterValidator.validateAsync({ email, password });
+      await userRegisterValidator.validateAsync({ email, password, fullName });
 
       const existingUser = await User.findOne({ email });
 
@@ -72,6 +72,7 @@ export class AuthController {
         email,
         password: hashedPassword,
         walletId: userWallet.id,
+        fullName,
       }).save();
 
       if (result != null) {
@@ -104,7 +105,7 @@ export class AuthController {
     try {
       const currentUser: IUser = response.locals.user;
 
-      const userMeDto = (({ email }) => ({ email }))(currentUser);
+      const userMeDto = (({ email, fullName }) => ({ email, fullName }))(currentUser);
 
       return response.status(200).send(new SuccessResult("Current user fetched successfully", userMeDto));
     } catch (error) {

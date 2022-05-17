@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, index: 1 },
     password: { type: String, required: false },
     walletId: { type: mongoose.Schema.Types.ObjectId, required: true, index: 1 },
+    fullName: { type: String, required: true },
   },
   { timestamps: true }
 );
@@ -15,7 +16,7 @@ userSchema.virtual("wallet", {
   ref: "wallets",
   localField: "walletId",
   foreignField: "_id",
-  justOne: true
+  justOne: true,
 });
 
 userSchema.set("toObject", { virtuals: true });

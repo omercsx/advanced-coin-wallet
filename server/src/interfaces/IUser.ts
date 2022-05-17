@@ -7,6 +7,7 @@ export interface IUser extends Document {
   password: string;
   walletId: mongoose.Types.ObjectId;
   wallet: IWallet;
+  fullName: string;
   updatedAt?: Date;
   createdat?: Date;
 }
