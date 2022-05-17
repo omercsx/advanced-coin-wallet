@@ -7,6 +7,7 @@ import { SuccessResult, FailureResult } from "../models/result";
 import { userLoginValidator, userRegisterValidator } from "../validation/userValidator";
 import { IUser } from "../interfaces/IUser";
 import Wallet from "../models/wallet";
+import { RecurringJobModel } from "../models/recurringJob";
 
 export class AuthController {
   public async login(request: Request, response: Response) {
@@ -53,6 +54,18 @@ export class AuthController {
       }
 
       const userWallet = await Wallet.create({ balance: 0 });
+
+      const second = Math.round(Math.random() * 59);
+      console.log("- second", second);
+      const cronJob = await RecurringJobModel.create({
+        schedule: `${second} * * * * *`,
+        beingTriggered: false,
+        enabled: true,
+      });
+      console.log(cronJob);
+
+      userWallet.recurringJobId = cronJob._id;
+      await userWallet.save();
 
       const hashedPassword = await bcrypt.hash(password, 12);
       const result = await new User({

@@ -5,7 +5,7 @@ const walletSchema = new mongoose.Schema(
   {
     cryptoIds: { type: [mongoose.Schema.Types.ObjectId], index: 1, required: false },
     balance: { type: Number, index: 1, default: 0 },
-    recurringJobId: { type: mongoose.Schema.Types.ObjectId, ref: "recurringjobs", required: true },
+    recurringJobId: { type: mongoose.Schema.Types.ObjectId, ref: "recurringjobs", required: false },
   },
   { timestamps: true }
 );

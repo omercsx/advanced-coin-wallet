@@ -54,6 +54,15 @@ async function getJobsToRun() {
   return jobsToRun;
 }
 
+async function prepareJobForNextRun(job: IRecurringJobDocument) {
+  const parsed = parseExpression(job.schedule);
+  const nextRunAt = parsed.next().toDate();
+
+  job.beingTriggered = false;
+  job.nextRunAt = nextRunAt;
+  await job.save();
+}
+
 async function handleRecurringJob(job: IRecurringJobDocument) {
   const wallet = await Wallet.findOne({ recurringJobId: job._id });
 
@@ -67,6 +76,7 @@ async function handleRecurringJob(job: IRecurringJobDocument) {
   });
 
   if (!walletCryptos || walletCryptos.length === 0) {
+    await prepareJobForNextRun(job);
     return false;
   }
 
@@ -91,12 +101,7 @@ async function handleRecurringJob(job: IRecurringJobDocument) {
     walletId: wallet._id,
   });
 
-  const parsed = parseExpression(job.schedule);
-  const nextRunAt = parsed.next().toDate();
-
-  job.beingTriggered = false;
-  job.nextRunAt = nextRunAt;
-  await job.save();
+  await prepareJobForNextRun(job);
   return true;
 }
 
