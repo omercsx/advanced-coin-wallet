@@ -30,7 +30,7 @@ export const Main = () => {
           </div>
         </Card>
         <Card className='w-max flex flex-col items-center gap-5' p={"xl"} shadow='sm' radius={"lg"}>
-          <Text size='xl'>User's Asset</Text>
+          <Text size='xl'>User's Assets</Text>
           {wallet?.status ? (
             wallet?.data?.cryptos?.map?.((crypto) => (
               <SingleCrypto
