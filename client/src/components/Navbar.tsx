@@ -15,10 +15,6 @@ export const Navbar = () => {
   email = auth?.user?.email;
   fullName = auth?.user?.fullName;
 
-  // if there is 2 word split full name into first and last name and set initials
-
-  const [firstName, lastName] = fullName?.split(" ");
-
   const handleLogout = async () => {
     try {
       const response = await axios.post("/auth/logout");
@@ -55,7 +51,7 @@ export const Navbar = () => {
               <Avatar src={null} alt={fullName} color='indigo'>
                 {fullName?.includes(" ")
                   ? fullName?.split(" ")[0][0].toUpperCase() + fullName?.split(" ")[1][0].toUpperCase()
-                  : fullName?.[0].toUpperCase()}
+                  : fullName?.[0]?.toUpperCase()}
               </Avatar>
             }
           >
