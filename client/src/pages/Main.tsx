@@ -54,7 +54,7 @@ export const Main = () => {
     {
       id: "crypto",
       color: "hsl(356, 100%, 100%)",
-      data: walletValueHistory,
+      data: walletValueHistory.reverse(),
     },
   ];
 
