@@ -176,9 +176,9 @@ export const Main = () => {
           />
         </Card>
       </div>
-      <div className='flex flex-col justify-between w-2/5 gap-10 items-end'>
-        <Card className='w-max h-max' p={"xl"} shadow='sm' radius={"lg"}>
-          <div className='flex flex-col gap-4'>
+      <div className='flex flex-col justify-start w-2/5 gap-4 items-end'>
+        <Card className='w-full h-max' p={"xl"} shadow='sm' radius={"lg"}>
+          <div className='flex flex-col gap-4 items-center'>
             <Text className='text-sm'>Total Balance</Text>
             <div className='flex items-center gap-2'>
               <BiDollar size={"2rem"} />
