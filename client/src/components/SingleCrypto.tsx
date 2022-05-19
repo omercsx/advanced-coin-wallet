@@ -22,7 +22,6 @@ export const SingleCrypto = ({ id, symbol, amount, lastPrice, exchangeName, exch
   const handleEdit = async (cryptoId: string, newAmount: number | undefined) => {
     try {
       const response = await axios.patch(`/userCrypto/${cryptoId}`, { newAmount: newAmount });
-      console.log(response);
       if (response.status === 200) {
         walletDispatch({
           type: ACTIONS.DELETE_COIN,
