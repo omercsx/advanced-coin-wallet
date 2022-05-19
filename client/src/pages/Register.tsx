@@ -14,7 +14,7 @@ export const Register = () => {
     try {
       const data = { email: email, fullName: fullName, password: password };
       const response = await axios.post("/auth/register", data);
-      console.log(response);
+
       if (response?.status === 201 && response?.data?.status) {
         toast.success(response?.data?.message, { duration: 3000 });
         navigate("/login");
