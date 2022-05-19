@@ -61,7 +61,7 @@ export class AuthController {
       const cronJob = await RecurringJobModel.create({
         schedule: `${second} * * * * *`,
         beingTriggered: false,
-        enabled: true,
+        enabled: false,
       });
 
       userWallet.recurringJobId = cronJob._id;

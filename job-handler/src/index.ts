@@ -76,11 +76,12 @@ async function handleRecurringJob(job: IRecurringJobDocument) {
   });
 
   if (!walletCryptos || walletCryptos.length === 0) {
-    await prepareJobForNextRun(job);
+    job.enabled = false;
+    job.beingTriggered = false;
+    await job.save();
     return false;
   }
 
-  // TODO create a changeRecord model and save a record of every check
   wallet.balance = 0;
   for (const crypto of walletCryptos) {
     const currentPrice = await CryptoPriceHelper.getPrice(
