@@ -7,11 +7,14 @@ import Wallet from "../models/wallet";
 import Exchange, { CryptoExchange } from "../models/exchange";
 import { CryptoPriceHelper } from "../helpers/cryptoPriceHelper";
 import { RecurringJobModel } from "../models/recurringJob";
+import { userCryptoCreateValidator } from "../validation/userCryptoValidator";
 
 export class UserCryptoController {
   public static async Add(request: Request, response: Response) {
     try {
       const { exchangeName, symbol, amount } = request.body;
+
+      await userCryptoCreateValidator.validateAsync({ exchangeName, symbol, amount });
 
       const userWallet = await Wallet.findById(response.locals.user.walletId);
 
