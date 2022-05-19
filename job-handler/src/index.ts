@@ -6,6 +6,8 @@ import Wallet from "./models/wallet";
 import { parseExpression } from "cron-parser";
 import { setTimeout } from "timers/promises";
 import ChangeRecordModel from "./models/changeRecord";
+import http from "http";
+const PORT = process.env.PORT || 5000;
 
 async function main() {
   console.log("db", "Connecting to MongoDB...");
@@ -105,5 +107,19 @@ async function handleRecurringJob(job: IRecurringJobDocument) {
   await prepareJobForNextRun(job);
   return true;
 }
+
+const server = http.createServer(async (req, res) => {
+  if (req.url === "/" && req.method === "GET") {
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end();
+  } else {
+    res.writeHead(404, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ message: "Route not found" }));
+  }
+});
+
+server.listen(PORT, () => {
+  console.log(`server started on port: ${PORT}`);
+});
 
 main();
