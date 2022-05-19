@@ -32,7 +32,7 @@ export const Register = () => {
     }
   };
   const form = useForm({
-    initialValues: { email: "", fullName: "", password: "secret", confirmPassword: "sevret" },
+    initialValues: { email: "", fullName: "", password: "", confirmPassword: "" },
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
       fullName: (value) => (value.length > 0 ? null : "Full name is required"),
@@ -69,7 +69,7 @@ export const Register = () => {
                 label='Password'
                 size='lg'
                 required
-                placeholder='Password'
+                placeholder='********'
                 {...form.getInputProps("password")}
               />
 
@@ -77,7 +77,7 @@ export const Register = () => {
                 label='Confirm Password'
                 size='lg'
                 required
-                placeholder='Confirm Password'
+                placeholder='********'
                 {...form.getInputProps("confirmPassword")}
               />
             </div>
