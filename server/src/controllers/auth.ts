@@ -58,8 +58,9 @@ export class AuthController {
       const userWallet = await Wallet.create({ balance: 0 });
 
       const second = Math.round(Math.random() * 59);
+      const minute = Math.round(Math.random() * 4);
       const cronJob = await RecurringJobModel.create({
-        schedule: `${second} * * * * *`,
+        schedule: `${second} ${minute}/5 * * * *`,
         beingTriggered: false,
         enabled: false,
       });
