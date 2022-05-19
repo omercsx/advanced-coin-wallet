@@ -8,3 +8,8 @@ export const userCryptoCreateValidator = Joi.object({
   symbol: Joi.string().required(),
   amount: Joi.number().required(),
 });
+
+export const userCryptoUpdateValidator = Joi.object({
+  userCryptoId: Joi.string().required(),
+  newAmount: Joi.number().required(),
+});

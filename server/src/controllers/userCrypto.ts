@@ -4,10 +4,10 @@ import UserCrypto from "../models/userCrypto";
 
 import { SuccessResult, FailureResult } from "../models/result";
 import Wallet from "../models/wallet";
-import Exchange, { CryptoExchange } from "../models/exchange";
+import Exchange from "../models/exchange";
 import { CryptoPriceHelper } from "../helpers/cryptoPriceHelper";
 import { RecurringJobModel } from "../models/recurringJob";
-import { userCryptoCreateValidator } from "../validation/userCryptoValidator";
+import { userCryptoCreateValidator, userCryptoUpdateValidator } from "../validation/userCryptoValidator";
 
 export class UserCryptoController {
   public static async Add(request: Request, response: Response) {
@@ -76,6 +76,8 @@ export class UserCryptoController {
       const { newAmount } = request.body;
       const { userCryptoId } = request.params;
 
+      await userCryptoUpdateValidator.validateAsync({ userCryptoId, newAmount });
+
       const userCrypto = await UserCrypto.findById(userCryptoId).populate("exchange", "name baseApi priceEndpoint");
 
       if (!userCrypto) {
@@ -108,7 +110,11 @@ export class UserCryptoController {
       await userCrypto.save();
 
       return response.status(200).send(new SuccessResult("Crypto Updated Successfully!", userCrypto));
-    } catch (error) {
+    } catch (error: any) {
+      if (error.isJoi) {
+        return response.status(400).send(new FailureResult("Validation error: " + error.message));
+      }
+
       console.log(error);
       return response.status(500).json(new FailureResult("Something went wrong."));
     }
