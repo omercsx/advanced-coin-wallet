@@ -52,7 +52,7 @@ export class UserCryptoController {
       await userWallet.save();
 
       if (userWallet.cryptoIds.length >= 1) {
-        await RecurringJobModel.findOneAndUpdate(userWallet.recurringJobId, { $set: { enabled: true } });
+        await RecurringJobModel.findByIdAndUpdate(userWallet.recurringJobId, { $set: { enabled: true } });
       }
 
       newUserCrypto.exchange = exchange;
@@ -150,7 +150,7 @@ export class UserCryptoController {
       await wallet.save();
 
       if (wallet.cryptoIds.length === 0) {
-        await RecurringJobModel.findOneAndUpdate(wallet.recurringJobId, { $set: { enabled: true } });
+        await RecurringJobModel.findByIdAndUpdate(wallet.recurringJobId, { $set: { enabled: false } });
       }
 
       await userCrypto.deleteOne();
