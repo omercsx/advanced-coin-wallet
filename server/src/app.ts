@@ -34,7 +34,12 @@ export class Api {
     Api.app.use(express.urlencoded({ extended: true }));
     Api.app.use(
       cors({
-        origin: "https://coin-wallet-front-ar2rl.ondigitalocean.app",
+        origin: [
+          "https://coin-wallet-front-ar2rl.ondigitalocean.app",
+          "https://www.coinwallet.dev",
+          "https://coinwallet.dev",
+          "http://localhost:3000",
+        ],
         methods: ["POST", "PUT", "GET", "DELETE", "OPTIONS", "HEAD", "PATCH"],
         credentials: true,
       })
