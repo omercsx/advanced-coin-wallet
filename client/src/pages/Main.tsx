@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import moment from "moment";
 import axios from "../api/axios";
 import { Card, Loader, Modal, NumberInput, Select, Text } from "@mantine/core";
@@ -54,7 +54,7 @@ export const Main = () => {
     {
       id: "crypto",
       color: "hsl(356, 100%, 100%)",
-      data: walletValueHistory,
+      data: walletValueHistory.reverse(),
     },
   ];
 
@@ -135,20 +135,11 @@ export const Main = () => {
           />
 
           <button className='px-8 py-2 bg-green-600 rounded-md hover:bg-green-900' type='submit'>
-            <text className='font-sans font-medium'>Add</text>
+            <Text className='font-sans font-medium'>Add</Text>
           </button>
         </form>
       </Modal>
       <div className='flex flex-col w-3/5 gap-10'>
-        <Card className='w-max h-max' p={"xl"} shadow='sm' radius={"lg"}>
-          <div className='flex flex-col gap-4'>
-            <Text className='text-sm'>Total Balance</Text>
-            <div className='flex items-center gap-2'>
-              <BiDollar size={"2rem"} />
-              <Text className='text-4xl'>{wallet?.status ? wallet?.data?.balance : <Loader />}</Text>
-            </div>
-          </div>
-        </Card>
         <Card className='h-96 w-12/12' p={"xs"} shadow='sm' radius={"lg"}>
           <ResponsiveLine
             data={data}
@@ -185,7 +176,16 @@ export const Main = () => {
           />
         </Card>
       </div>
-      <div className='flex justify-between w-2/5 '>
+      <div className='flex flex-col justify-between w-2/5 gap-10 items-end'>
+        <Card className='w-max h-max' p={"xl"} shadow='sm' radius={"lg"}>
+          <div className='flex flex-col gap-4'>
+            <Text className='text-sm'>Total Balance</Text>
+            <div className='flex items-center gap-2'>
+              <BiDollar size={"2rem"} />
+              <Text className='text-4xl'>{wallet?.status ? wallet?.data?.balance : <Loader />}</Text>
+            </div>
+          </div>
+        </Card>
         <Card className=' h-max flex flex-col items-center gap-5 w-full' p={"xl"} shadow='sm' radius={"lg"}>
           <Text size='xl'>User's Assets</Text>
           {wallet?.status ? (
