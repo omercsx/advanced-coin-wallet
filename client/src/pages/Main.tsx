@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import moment from "moment";
 import axios from "../api/axios";
 import { Card, Loader, Modal, NumberInput, Select, Text } from "@mantine/core";
@@ -135,7 +135,7 @@ export const Main = () => {
           />
 
           <button className='px-8 py-2 bg-green-600 rounded-md hover:bg-green-900' type='submit'>
-            <text className='font-sans font-medium'>Add</text>
+            <Text className='font-sans font-medium'>Add</Text>
           </button>
         </form>
       </Modal>

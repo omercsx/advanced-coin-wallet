@@ -46,6 +46,15 @@ const reducer = (state: IState, action: any): IState => {
         },
       };
 
+    case ACTIONS.DELETE_COIN:
+      return {
+        status: true,
+        message: "Coin deleted successfully",
+        data: {
+          balance: state.data.balance - action.payload.data.balance,
+          cryptos: state.data.cryptos.filter((crypto) => crypto.id !== action.payload.data.id),
+        },
+      };
     default:
       return state;
   }
