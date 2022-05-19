@@ -19,11 +19,12 @@ export enum ExchangeNames {
 
 export interface IExchange {
   _id: string;
-  name: ExchangeNames;
+  name: string;
   baseApi: string;
   symbolListEndpoint: string;
   priceEndpoint: string;
   logoUrl: string;
+  symbols: string[];
 }
 
 export interface IWallet {
@@ -36,4 +37,14 @@ export interface IWallet {
   __v: number;
   recurringJobId: string;
   cryptos: ICrypto[];
+}
+
+export interface IWalletHistory {
+  _id: string;
+  eventDate: string;
+  value: number;
+  walletId: string;
+  createdAt: string;
+  updatedAt: string;
+  id: string;
 }

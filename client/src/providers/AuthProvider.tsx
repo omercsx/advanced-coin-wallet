@@ -2,17 +2,20 @@ import React, { createContext, ReactNode, useReducer } from "react";
 
 interface IState {
   isAuthenticated: boolean;
+  modalOpen: boolean;
   user: any;
 }
 
 export const ACTIONS = {
   USER_LOGGED_IN: "USER_LOGGED_IN",
   USER_LOGGED_OUT: "USER_LOGGED_OUT",
+  MODAL_SWITCH: "MODAL_SWITCH",
 };
 
 const defaultState = {
   isAuthenticated: false,
   user: null,
+  modalOpen: false,
 };
 
 const reducer = (state: IState, action: any) => {
@@ -20,8 +23,16 @@ const reducer = (state: IState, action: any) => {
     case ACTIONS.USER_LOGGED_IN:
       return {
         isAuthenticated: true,
+        modalOpen: false,
         user: action.payload,
       };
+
+    case ACTIONS.MODAL_SWITCH:
+      return {
+        ...state,
+        modalOpen: !state.modalOpen,
+      };
+
     case ACTIONS.USER_LOGGED_OUT:
       return defaultState;
     default:

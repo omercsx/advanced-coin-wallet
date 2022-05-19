@@ -1,6 +1,7 @@
 import { Text, Avatar, Menu } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { AiOutlineLogout } from "react-icons/ai";
+import { BsPlusSquare } from "react-icons/bs";
 import { BiRocket } from "react-icons/bi";
 import { ACTIONS as AUTH_ACTIONS } from "../providers/AuthProvider";
 import useAuth from "../hooks/useAuth";
@@ -28,6 +29,10 @@ export const Navbar = () => {
     }
   };
 
+  const handleCreateModal = () => {
+    authDispatch({ type: AUTH_ACTIONS.MODAL_SWITCH, payload: null });
+  };
+
   return (
     <div className='flex justify-center w-full p-4 border-b border-b-gray-600'>
       <div className='flex items-center justify-between w-full max-w-screen-xl 2xl:max-w-screen-3xl'>
@@ -39,11 +44,12 @@ export const Navbar = () => {
           <Link to='/' className='pl-4 ml-4 border-l border-peyk-400'>
             <Text size='sm'>Home</Text>
           </Link>
-          <Link to='map' className='ml-4'>
-            <Text size='sm'>Map</Text>
-          </Link>
         </div>
         <div className='flex items-center space-x-4'>
+          <button className='text-green-500 hover:text-green-700' onClick={handleCreateModal}>
+            <BsPlusSquare size={"1.4rem"} />
+          </button>
+
           <Menu
             trigger='hover'
             delay={500}
