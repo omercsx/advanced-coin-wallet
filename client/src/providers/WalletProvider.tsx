@@ -1,21 +1,29 @@
 import React, { createContext, ReactNode, useReducer } from "react";
-import { IWallet } from "../types";
+import { ICrypto } from "../types";
 
 interface IState {
   status: boolean;
   message: string | null;
-  data: IWallet | null;
+  data: {
+    balance: number;
+    cryptos: ICrypto[];
+  };
 }
 
 export const ACTIONS = {
   GET_WALLET: "GET_WALLET",
   FETCH_WALLET: "FETCH_WALLET",
+  ADD_COIN: "ADD_COIN",
+  DELETE_COIN: "DELETE_COIN",
 };
 
 const defaultState: IState = {
   status: false,
   message: null,
-  data: null,
+  data: {
+    balance: 0,
+    cryptos: [],
+  },
 };
 
 const reducer = (state: IState, action: any): IState => {
@@ -27,6 +35,16 @@ const reducer = (state: IState, action: any): IState => {
       return { ...state, message: action.payload.message };
     case ACTIONS.GET_WALLET:
       return { ...state };
+
+    case ACTIONS.ADD_COIN:
+      return {
+        status: true,
+        message: action.payload.message,
+        data: {
+          balance: state.data.balance + action.payload.data.balance,
+          cryptos: [...state.data.cryptos, action.payload.data.newUserCrypto],
+        },
+      };
 
     default:
       return state;
