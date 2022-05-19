@@ -78,7 +78,10 @@ export class UserCryptoController {
 
       await userCryptoUpdateValidator.validateAsync({ userCryptoId, newAmount });
 
-      const userCrypto = await UserCrypto.findById(userCryptoId).populate("exchange", "name baseApi priceEndpoint");
+      const userCrypto = await UserCrypto.findById(userCryptoId).populate(
+        "exchange",
+        "name baseApi priceEndpoint logoUrl"
+      );
 
       if (!userCrypto) {
         return response.status(404).send(new FailureResult("Specified user crypto not found!"));
