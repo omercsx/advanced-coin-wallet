@@ -1,7 +1,7 @@
 import { Text, Avatar, Menu } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { AiOutlineLogout } from "react-icons/ai";
-import { BsPlusSquare } from "react-icons/bs";
+import { GoPlus } from "react-icons/go";
 import { BiRocket } from "react-icons/bi";
 import { ACTIONS as AUTH_ACTIONS } from "../providers/AuthProvider";
 import useAuth from "../hooks/useAuth";
@@ -46,8 +46,12 @@ export const Navbar = () => {
           </Link>
         </div>
         <div className='flex items-center space-x-4'>
-          <button className='text-green-500 hover:text-green-700' onClick={handleCreateModal}>
-            <BsPlusSquare size={"1.4rem"} />
+          <button
+            className='text-green-500 rounded-lg hover:bg-green-500 hover:text-white flex gap-1 items-center border-2 border-green-500 py-1 px-2'
+            onClick={handleCreateModal}
+          >
+            <GoPlus size={"1.4rem"} />
+            <p className='font-bold'>Add Asset</p>
           </button>
 
           <Menu

@@ -39,7 +39,7 @@ export const Main = () => {
       }
     };
     getWallet();
-  }, [authState, exchange]);
+  }, [authState]);
 
   //moment(item?.eventDate).format("DD/MM").toString()
   const walletValueHistory: any = [];
@@ -76,8 +76,9 @@ export const Main = () => {
         amount: values.amount,
       });
       if (response?.status === 200 && response?.data?.status) {
+        walletDispatch({ type: WALLET_ACTIONS.ADD_COIN, payload: response?.data });
         authDispatch({ type: Auth_ACTIONS.MODAL_SWITCH, payload: null });
-        toast.success(response?.data?.message);
+        toast.success(response?.data?.message, { duration: 3000 });
       }
     } catch (error) {
       console.log(error);
@@ -92,38 +93,8 @@ export const Main = () => {
       : exchange?.data?.filter((item: any) => item?.name === "KuCoin")[0].symbols;
 
   return (
-    <div className='flex flex-col px-8 py-6 gap-10'>
+    <div className='flex py-6 px-4 justify-between gap-4'>
       <Toaster position='top-right' reverseOrder={false} />
-
-      <div className='flex w-full justify-between'>
-        <Card className='w-max h-max' p={"xl"} shadow='sm' radius={"lg"}>
-          <div className='flex flex-col gap-4'>
-            <Text className='text-sm'>Total Balance</Text>
-            <div className='flex items-center gap-2'>
-              <BiDollar size={"2rem"} />
-              <Text className='text-4xl'>{wallet?.status ? wallet?.data?.balance : <Loader />}</Text>
-            </div>
-          </div>
-        </Card>
-        <Card className='w-max flex flex-col items-center gap-5' p={"xl"} shadow='sm' radius={"lg"}>
-          <Text size='xl'>User's Assets</Text>
-          {wallet?.status ? (
-            wallet?.data?.cryptos?.map?.((crypto) => (
-              <SingleCrypto
-                key={crypto?.id}
-                amount={crypto?.amount}
-                exchangeLogo={crypto?.exchange?.logoUrl}
-                exchangeName={crypto?.exchange?.name}
-                lastPrice={crypto?.lastPrice}
-                symbol={crypto?.symbol}
-              />
-            ))
-          ) : (
-            <Loader />
-          )}
-        </Card>
-      </div>
-
       <Modal
         opened={authState.modalOpen}
         onClose={() => authDispatch({ type: Auth_ACTIONS.MODAL_SWITCH })}
@@ -168,9 +139,17 @@ export const Main = () => {
           </button>
         </form>
       </Modal>
-
-      <div>
-        <Card className='h-96 w-8/12' p={"xs"} shadow='sm' radius={"lg"}>
+      <div className='flex flex-col w-3/5 gap-10'>
+        <Card className='w-max h-max' p={"xl"} shadow='sm' radius={"lg"}>
+          <div className='flex flex-col gap-4'>
+            <Text className='text-sm'>Total Balance</Text>
+            <div className='flex items-center gap-2'>
+              <BiDollar size={"2rem"} />
+              <Text className='text-4xl'>{wallet?.status ? wallet?.data?.balance : <Loader />}</Text>
+            </div>
+          </div>
+        </Card>
+        <Card className='h-96 w-12/12' p={"xs"} shadow='sm' radius={"lg"}>
           <ResponsiveLine
             data={data}
             enableGridX={false}
@@ -204,6 +183,26 @@ export const Main = () => {
               );
             }}
           />
+        </Card>
+      </div>
+      <div className='flex justify-between w-2/5 '>
+        <Card className=' h-max flex flex-col items-center gap-5 w-full' p={"xl"} shadow='sm' radius={"lg"}>
+          <Text size='xl'>User's Assets</Text>
+          {wallet?.status ? (
+            wallet?.data?.cryptos?.map?.((crypto) => (
+              <SingleCrypto
+                key={crypto?.id}
+                id={crypto?.id}
+                amount={crypto?.amount}
+                exchangeLogo={crypto?.exchange?.logoUrl}
+                exchangeName={crypto?.exchange?.name}
+                lastPrice={crypto?.lastPrice}
+                symbol={crypto?.symbol}
+              />
+            ))
+          ) : (
+            <Loader />
+          )}
         </Card>
       </div>
     </div>
