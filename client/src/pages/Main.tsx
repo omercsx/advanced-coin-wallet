@@ -182,7 +182,7 @@ export const Main = () => {
             <Text className='text-sm'>Total Balance</Text>
             <div className='flex items-center gap-2'>
               <BiDollar size={"2rem"} />
-              <Text className='text-4xl'>{wallet?.status ? wallet?.data?.balance : <Loader />}</Text>
+              <Text className='text-4xl'>{wallet?.status ? wallet?.data?.balance.toFixed(2) : <Loader />}</Text>
             </div>
           </div>
         </Card>

@@ -88,7 +88,7 @@ export const SingleCrypto = ({ id, symbol, amount, lastPrice, exchangeName, exch
       ) : (
         <NumberInput hideControls className='w-14' size='xs' required value={value} onChange={(val) => setValue(val)} />
       )}
-      <Text>{lastPrice}</Text>
+      <Text>{lastPrice.toFixed(2)}</Text>
       <Text>{(lastPrice * amount).toFixed(2)}</Text>
       <Menu trigger='hover' delay={300}>
         <Menu.Item
