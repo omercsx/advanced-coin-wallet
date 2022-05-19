@@ -9,5 +9,5 @@ export interface IUser extends Document {
   wallet: IWallet;
   fullName: string;
   updatedAt?: Date;
-  createdat?: Date;
+  createdAt?: Date;
 }
