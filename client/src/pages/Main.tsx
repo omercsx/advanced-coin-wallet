@@ -93,7 +93,7 @@ export const Main = () => {
       : exchange?.data?.filter((item: any) => item?.name === "KuCoin")[0].symbols;
 
   return (
-    <div className='flex px-8 py-6 gap-4 justify-between  '>
+    <div className='flex py-6 px-4 justify-between gap-4'>
       <Toaster position='top-right' reverseOrder={false} />
       <Modal
         opened={authState.modalOpen}
@@ -139,7 +139,7 @@ export const Main = () => {
           </button>
         </form>
       </Modal>
-      <div className='flex flex-col w-full gap-10'>
+      <div className='flex flex-col w-3/5 gap-10'>
         <Card className='w-max h-max' p={"xl"} shadow='sm' radius={"lg"}>
           <div className='flex flex-col gap-4'>
             <Text className='text-sm'>Total Balance</Text>
@@ -185,8 +185,8 @@ export const Main = () => {
           />
         </Card>
       </div>
-      <div className='flex justify-between'>
-        <Card className='w-max h-max flex flex-col items-center gap-5' p={"xl"} shadow='sm' radius={"lg"}>
+      <div className='flex justify-between w-2/5 '>
+        <Card className=' h-max flex flex-col items-center gap-5 w-full' p={"xl"} shadow='sm' radius={"lg"}>
           <Text size='xl'>User's Assets</Text>
           {wallet?.status ? (
             wallet?.data?.cryptos?.map?.((crypto) => (
