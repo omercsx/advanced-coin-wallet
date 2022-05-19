@@ -35,7 +35,7 @@ export class Api {
     Api.app.use(
       cors({
         origin: "http://localhost:3000",
-        methods: ["POST", "PUT", "GET", "DELETE", "OPTIONS", "HEAD"],
+        methods: ["POST", "PUT", "GET", "DELETE", "OPTIONS", "HEAD", "PATCH"],
         credentials: true,
       })
     );
@@ -52,7 +52,7 @@ export class Api {
         cookie: {
           maxAge: 1000 * 60 * 60 * 2,
           sameSite: "none",
-          secure: process.env.NODE_ENV === "production",
+          secure: true,
         },
         proxy: true,
       })
