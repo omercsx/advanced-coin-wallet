@@ -45,9 +45,47 @@ export class WalletController {
 
   public async Dashboard(request: Request, response: Response) {
     try {
-      const lastChanges = await ChangeRecordModel.find({ walletId: response.locals.user.walletId })
-        .sort({ eventDate: -1 })
-        .limit(300);
+      const lastChanges = await ChangeRecordModel.aggregate([
+        {
+          $match: {
+            walletId: response.locals.user.walletId,
+            eventDate: { $gte: new Date(new Date().setDate(new Date().getDate() - 1)) },
+          },
+        },
+        {
+          $project: {
+            eventDate: {
+              $dateToString: { date: "$eventDate", format: "%Y-%m-%d-%H" },
+            },
+            value: 1,
+          },
+        },
+        {
+          $group: {
+            _id: { eventDate: "$eventDate" },
+            value: { $avg: "$value" },
+            maxValue: { $max: "$value" },
+            minValue: { $min: "$value" },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            value: 1,
+            maxValue: 1,
+            minValue: 1,
+            eventDate: {
+              $dateFromString: {
+                dateString: "$_id.eventDate",
+                format: "%Y-%m-%d-%H",
+              },
+            },
+          },
+        },
+        {
+          $sort: { eventDate: 1 },
+        },
+      ]);
 
       return response.status(200).send(new SuccessResult("Dashboard Fetched Successfully!", lastChanges));
     } catch (error) {

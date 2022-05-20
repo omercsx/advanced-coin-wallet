@@ -43,6 +43,8 @@ export interface IWalletHistory {
   _id: string;
   eventDate: string;
   value: number;
+  maxValue: number;
+  minValue: number;
   walletId: string;
   createdAt: string;
   updatedAt: string;

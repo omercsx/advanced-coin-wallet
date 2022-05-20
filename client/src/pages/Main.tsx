@@ -43,18 +43,39 @@ export const Main = () => {
 
   //moment(item?.eventDate).format("DD/MM").toString()
   const walletValueHistory: any = [];
-  dashboard?.data?.map((item: IWalletHistory) =>
+  const walletMaxValueHistory: any = [];
+  const walletMinValueHistory: any = [];
+  dashboard?.data?.map((item: IWalletHistory) =>{
+    walletMaxValueHistory.push({
+      y: item?.maxValue,
+      x: moment(item?.eventDate).format("MM/DD/HH").toString(),
+    })
     walletValueHistory.push({
       y: item?.value,
-      x: moment(item?.eventDate).format("DD/MM").toString(),
+      x: moment(item?.eventDate).format("MM/DD/HH").toString(),
     })
+    walletMinValueHistory.push({
+      y: item?.minValue,
+      x: moment(item?.eventDate).format("MM/DD/HH").toString(),
+    })
+  }
   );
 
   const data = [
     {
-      id: "crypto",
+      id: "maxCrypto",
       color: "hsl(356, 100%, 100%)",
-      data: walletValueHistory.reverse(),
+      data: walletMaxValueHistory,
+    },
+    {
+      id: "crypto",
+      color: "hsl(294, 70%, 50%)",
+      data: walletValueHistory,
+    },
+    {
+      id: "minCrypto",
+      color: "hsl(30, 70%, 50%)",
+      data: walletMinValueHistory,
     },
   ];
 
@@ -151,7 +172,7 @@ export const Main = () => {
               type: "linear",
               min: "auto",
               max: "auto",
-              stacked: true,
+              stacked: false,
               reverse: false,
             }}
             yFormat=' >-.2f'
