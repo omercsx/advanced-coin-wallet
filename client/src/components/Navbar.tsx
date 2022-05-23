@@ -51,7 +51,7 @@ export const Navbar = () => {
             onClick={handleCreateModal}
           >
             <GoPlus size={"1.4rem"} />
-            <p className='font-bold'>Add Asset</p>
+            <p className='font-bold hidden md:flex'>Add Asset</p>
           </button>
 
           <Menu
