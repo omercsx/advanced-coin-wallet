@@ -34,7 +34,8 @@ export class UserCryptoController {
 
       const avgPrice = await CryptoPriceHelper.getPrice(
         exchange.baseApi + exchange.priceEndpoint + symbol,
-        exchange.name
+        exchange.name,
+        symbol
       );
 
       const newUserCrypto = await UserCrypto.create({
@@ -101,7 +102,8 @@ export class UserCryptoController {
       wallet.balance = +wallet.balance.toFixed(4);
       const avgPrice = await CryptoPriceHelper.getPrice(
         userCrypto.exchange.baseApi + userCrypto.exchange.priceEndpoint + userCrypto.symbol,
-        userCrypto.exchange.name
+        userCrypto.exchange.name,
+        userCrypto.symbol
       );
 
       userCrypto.lastPrice = avgPrice;

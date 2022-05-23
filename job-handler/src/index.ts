@@ -88,7 +88,8 @@ async function handleRecurringJob(job: IRecurringJobDocument) {
   for (const crypto of walletCryptos) {
     const currentPrice = await CryptoPriceHelper.getPrice(
       crypto.exchange.baseApi + crypto.exchange.priceEndpoint + crypto.symbol,
-      crypto.exchange.name
+      crypto.exchange.name,
+      crypto.symbol
     );
 
     wallet.balance += +(currentPrice * crypto.amount).toFixed(4);
