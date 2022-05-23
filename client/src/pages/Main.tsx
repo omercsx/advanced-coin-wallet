@@ -113,7 +113,7 @@ export const Main = () => {
       : exchange?.data?.filter((item: any) => item?.name === "KuCoin")[0].symbols;
 
   return (
-    <div className='flex py-6 px-4 justify-between gap-4'>
+    <div className='flex flex-col-reverse md:flex-row py-6 px-4 justify-between gap-4'>
       <Toaster position='top-right' reverseOrder={false} />
       <Modal
         opened={authState.modalOpen}
@@ -159,7 +159,7 @@ export const Main = () => {
           </button>
         </form>
       </Modal>
-      <div className='flex flex-col w-3/5 gap-10'>
+      <div className='flex flex-col w-full md:w-3/5 gap-10'>
         <Card className='h-96 w-12/12' p={"xs"} shadow='sm' radius={"lg"}>
           <ResponsiveLine
             data={data}
@@ -221,7 +221,7 @@ export const Main = () => {
           />
         </Card>
       </div>
-      <div className='flex flex-col justify-start w-2/5 gap-4 items-end'>
+      <div className='flex flex-col justify-start w-full md:w-2/5 gap-4 items-end'>
         <Card className='w-full h-max' p={"xl"} shadow='sm' radius={"lg"}>
           <div className='flex flex-col gap-4 items-center'>
             <Text className='text-sm'>Total Balance</Text>
