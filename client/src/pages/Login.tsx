@@ -34,7 +34,7 @@ export const Login = () => {
     }
   };
   const form = useForm({
-    initialValues: { email: "", password: "secret" },
+    initialValues: { email: "", password: "" },
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
       password: (value: string) => (value.length > 4 ? null : "Password must be at least 6 characters"),
@@ -59,7 +59,7 @@ export const Login = () => {
               label='Password'
               size='lg'
               required
-              placeholder='Password'
+              placeholder='********'
               {...form.getInputProps("password")}
             />
           </Card.Section>
