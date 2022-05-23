@@ -45,35 +45,34 @@ export const Main = () => {
   const walletValueHistory: any = [];
   const walletMaxValueHistory: any = [];
   const walletMinValueHistory: any = [];
-  dashboard?.data?.map((item: IWalletHistory) =>{
+  dashboard?.data?.map((item: IWalletHistory) => {
     walletMaxValueHistory.push({
       y: item?.maxValue,
       x: moment(item?.eventDate).format("MM/DD/HH").toString(),
-    })
+    });
     walletValueHistory.push({
       y: item?.value,
       x: moment(item?.eventDate).format("MM/DD/HH").toString(),
-    })
+    });
     walletMinValueHistory.push({
       y: item?.minValue,
       x: moment(item?.eventDate).format("MM/DD/HH").toString(),
-    })
-  }
-  );
+    });
+  });
 
   const data = [
     {
-      id: "maxCrypto",
+      id: "Max Value",
       color: "hsl(356, 100%, 100%)",
       data: walletMaxValueHistory,
     },
     {
-      id: "crypto",
+      id: "Average Value",
       color: "hsl(294, 70%, 50%)",
       data: walletValueHistory,
     },
     {
-      id: "minCrypto",
+      id: "Min Value",
       color: "hsl(30, 70%, 50%)",
       data: walletMinValueHistory,
     },
@@ -185,6 +184,31 @@ export const Main = () => {
             pointBorderColor={{ from: "serieColor" }}
             pointLabelYOffset={-12}
             useMesh={true}
+            legends={[
+              {
+                anchor: "bottom-right",
+                direction: "column",
+                justify: false,
+                translateX: 0,
+                translateY: 0,
+                itemWidth: 100,
+                itemHeight: 20,
+                itemsSpacing: 4,
+                symbolSize: 20,
+                symbolShape: "circle",
+                itemDirection: "left-to-right",
+                itemTextColor: "#777",
+                effects: [
+                  {
+                    on: "hover",
+                    style: {
+                      itemBackground: "rgba(0, 0, 0, .03)",
+                      itemOpacity: 1,
+                    },
+                  },
+                ],
+              },
+            ]}
             tooltip={function (e: any) {
               let item = e?.point;
               return (
