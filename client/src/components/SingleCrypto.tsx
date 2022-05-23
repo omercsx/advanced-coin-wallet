@@ -76,11 +76,11 @@ export const SingleCrypto = ({ id, symbol, amount, lastPrice, exchangeName, exch
     <div
       className={
         openAmount
-          ? "flex w-full gap-4 items-center justify-between bg-yellow-900 px-1"
+          ? "flex w-full gap-4 items-center justify-between bg-yellow-900 px-1 rounded-lg"
           : "flex w-full gap-4 items-center justify-between px-1"
       }
     >
-      <img src={exchangeLogo} alt={exchangeName} className='rounded-full h-12' />
+      <img src={exchangeLogo} alt={exchangeName} className='rounded-full h-12 p-3' />
       <Text>{symbol}</Text>
       {!openAmount ? (
         <Text>{amount}</Text>
