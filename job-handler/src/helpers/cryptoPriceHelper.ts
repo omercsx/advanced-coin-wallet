@@ -40,7 +40,7 @@ export class CryptoPriceHelper {
       return value;
     }
 
-    if (exchangeCryptoRecord.lastCheckedDate.getTime() >= oneMinuteBefore.getTime()) {
+    if (exchangeCryptoRecord.lastCheckedDate.getTime() <= oneMinuteBefore.getTime()) {
       const value = await CryptoPriceHelper.getPriceFromApi(url, exchangeName);
 
       exchangeCryptoRecord.lastCheckedDate = now;
