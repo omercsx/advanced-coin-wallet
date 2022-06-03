@@ -183,6 +183,12 @@ export const Main = () => {
             pointBorderWidth={2}
             pointBorderColor={{ from: "serieColor" }}
             pointLabelYOffset={-12}
+            axisBottom= {{
+              tickSize: 5,
+              tickPadding: 5,
+              tickRotation: -90,
+              legendOffset: 36,
+          }}
             useMesh={true}
             legends={[
               {
