@@ -165,7 +165,7 @@ export const Main = () => {
             data={data}
             enableGridX={false}
             enableGridY={false}
-            margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+            margin={{ top: 20, right: 20, bottom: 60, left: 50 }}
             xScale={{ type: "point" }}
             yScale={{
               type: "linear",
@@ -192,7 +192,7 @@ export const Main = () => {
             useMesh={true}
             legends={[
               {
-                anchor: "bottom-right",
+                anchor: "top-right",
                 direction: "column",
                 justify: false,
                 translateX: 0,
