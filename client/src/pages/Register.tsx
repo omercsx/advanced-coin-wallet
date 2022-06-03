@@ -49,7 +49,7 @@ export const Register = () => {
       >
         <Card shadow='sm' p='xl'>
           <Card.Section p='xl' className='flex w-full items-center justify-center'>
-            <Text size='xl'>Welcome to Coin Wallet Register Page</Text>
+            <Text size='xl'>Good choice 🎉, let's start!</Text>
           </Card.Section>
           <Card.Section p='xl'>
             <TextInput required size='lg' label='Email' placeholder='your@email.com' {...form.getInputProps("email")} />
@@ -59,7 +59,7 @@ export const Register = () => {
               required
               size='lg'
               label='Full Name'
-              placeholder='Omer Cagri...'
+              placeholder='Your full name'
               {...form.getInputProps("fullName")}
             />
           </Card.Section>

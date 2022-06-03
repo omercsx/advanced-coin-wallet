@@ -49,7 +49,7 @@ export const Login = () => {
       >
         <Card shadow='sm' p='xl'>
           <Card.Section p='xl' className='flex w-full items-center justify-evenly gap-2'>
-            <Text size='xl'>Welcome to Coin Wallet Login Page</Text> <BiRocket size={"1.4rem"} />
+            <Text size='xl'>Good to have you back 🎉</Text> <BiRocket size={"1.4rem"} />
           </Card.Section>
           <Card.Section p='xl'>
             <TextInput required size='lg' label='Email' placeholder='your@email.com' {...form.getInputProps("email")} />
