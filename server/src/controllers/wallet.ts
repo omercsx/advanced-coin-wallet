@@ -36,7 +36,7 @@ export class WalletController {
         {
           $match: {
             walletId: response.locals.user.walletId,
-            eventDate: { $gte: new Date(new Date().setDate(new Date().getDate() - 1)) },
+            eventDate: { $gte: new Date(new Date().setDate(new Date().getDate() - 2)) },
           },
         },
         {
