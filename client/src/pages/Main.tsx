@@ -90,7 +90,6 @@ export const Main = () => {
 
   const handleSubmit = async (values: { exchange: string; crypto: string; amount: number }) => {
     try {
-      console.log(values);
       const response = await axios.post("userCrypto", {
         exchangeName: values.exchange,
         symbol: values.crypto,
