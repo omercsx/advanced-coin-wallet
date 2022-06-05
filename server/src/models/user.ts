@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import { IUser } from "../interfaces/IUser";
+import { IUser, UserRoles } from "../interfaces/IUser";
 
 const userSchema = new mongoose.Schema(
   {
@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: false },
     walletId: { type: mongoose.Schema.Types.ObjectId, required: true, index: 1 },
     fullName: { type: String, required: true },
+    role: { type: String, enum: UserRoles, required: true },
   },
   { timestamps: true }
 );

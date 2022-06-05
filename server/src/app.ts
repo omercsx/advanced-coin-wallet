@@ -6,6 +6,7 @@ import { ConnectionHelper } from "./helpers/connectionHelper";
 import { IUser } from "./interfaces/IUser";
 import router from "./routes";
 import cors from "cors";
+import { MigrationHelper } from "./helpers/migrationHelper";
 declare module "express-session" {
   interface SessionData {
     userId: string;
@@ -27,6 +28,8 @@ export class Api {
 
   public static async RunApp() {
     await ConnectionHelper.connect();
+
+    await MigrationHelper.migrate();
 
     // Configure Express App
     Api.app.set("trust proxy", 1);
