@@ -90,7 +90,18 @@ export class WalletController {
           responseData = lastChanges;
           break;
         case TimePeriods.threeDays:
-          responseData = lastChanges;
+          index = 0;
+          responseData = (lastChanges as IDashboardResponseData[]).reduce((acc, curr) => {
+            if (index % 2 === 0) {
+              acc.push(curr);
+            } else {
+              acc[acc.length - 1].value = (acc[acc.length - 1].value + curr.value) / 2;
+              acc[acc.length - 1].maxValue = Math.max(acc[acc.length - 1].maxValue, curr.maxValue);
+              acc[acc.length - 1].minValue = Math.min(acc[acc.length - 1].minValue, curr.minValue);
+            }
+            index++;
+            return acc;
+          }, [] as IDashboardResponseData[]);
           break;
         case TimePeriods.sevenDays:
           index = 0;
