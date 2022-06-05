@@ -40,7 +40,7 @@ export const Main = () => {
       }
     };
     getWallet();
-  }, [authState]);
+  }, [authState, day]);
 
   //moment(item?.eventDate).format("DD/MM").toString()
   const walletValueHistory: any = [];

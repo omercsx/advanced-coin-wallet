@@ -1,10 +1,12 @@
 import { Request, Response } from "express";
 import { CryptoPriceHelper } from "../helpers/cryptoPriceHelper";
+import { IDashboardResponseData, TimePeriods } from "../interfaces/IWallet";
 import ChangeRecordModel from "../models/changeRecord";
 
 import { SuccessResult, FailureResult } from "../models/result";
 import UserCrypto from "../models/userCrypto";
 import Wallet from "../models/wallet";
+import { dashboardValidator } from "../validation/dashboardValidatior";
 
 export class WalletController {
   public async Get(request: Request, response: Response) {
@@ -31,12 +33,20 @@ export class WalletController {
   }
 
   public async Dashboard(request: Request, response: Response) {
+    const timePeriod: TimePeriods = request.query.timePeriod as TimePeriods;
+    console.log(timePeriod);
+
     try {
+      await dashboardValidator.validateAsync({ timePeriod });
+
+      const fromDate = calculateFromDate(timePeriod);
+      let responseData: IDashboardResponseData[] = [];
+
       const lastChanges = await ChangeRecordModel.aggregate([
         {
           $match: {
             walletId: response.locals.user.walletId,
-            eventDate: { $gte: new Date(new Date().setDate(new Date().getDate() - 2)) },
+            eventDate: { $gte: fromDate },
           },
         },
         {
@@ -74,10 +84,69 @@ export class WalletController {
         },
       ]);
 
-      return response.status(200).send(new SuccessResult("Dashboard Fetched Successfully!", lastChanges));
-    } catch (error) {
+      let index = 0;
+
+      switch (timePeriod) {
+        case TimePeriods.oneDay:
+          responseData = lastChanges;
+          break;
+        case TimePeriods.threeDays:
+          responseData = lastChanges;
+          break;
+        case TimePeriods.sevenDays:
+          index = 0;
+          responseData = (lastChanges as IDashboardResponseData[]).reduce((acc, curr) => {
+            if (index % 4 === 0) {
+              acc.push(curr);
+            } else {
+              acc[acc.length - 1].value += curr.value;
+              acc[acc.length - 1].maxValue = Math.max(acc[acc.length - 1].maxValue, curr.maxValue);
+              acc[acc.length - 1].minValue = Math.min(acc[acc.length - 1].minValue, curr.minValue);
+            }
+            index++;
+            return acc;
+          }, [] as IDashboardResponseData[]);
+          break;
+        case TimePeriods.oneMonth:
+          index = 0;
+          // group lastChanges by every 4 elements
+          responseData = (lastChanges as IDashboardResponseData[]).reduce((acc, curr) => {
+            if (index % 12 === 0) {
+              acc.push(curr);
+            } else {
+              acc[acc.length - 1].value += curr.value;
+              acc[acc.length - 1].maxValue = Math.max(acc[acc.length - 1].maxValue, curr.maxValue);
+              acc[acc.length - 1].minValue = Math.min(acc[acc.length - 1].minValue, curr.minValue);
+            }
+            index++;
+            return acc;
+          }, [] as IDashboardResponseData[]);
+          break;
+      }
+
+      return response.status(200).send(new SuccessResult("Dashboard Fetched Successfully!", responseData));
+    } catch (error: any) {
+      if (error.isJoi) {
+        return response.status(400).send(new FailureResult("Validation error: " + error.message));
+      }
+
       console.log(error);
       return response.status(500).json(new FailureResult("Something went wrong."));
     }
+  }
+}
+
+function calculateFromDate(timePeriod: TimePeriods) {
+  const now = new Date();
+
+  switch (timePeriod) {
+    case TimePeriods.oneDay:
+      return new Date(now.getTime() - 24 * 60 * 60 * 1000);
+    case TimePeriods.threeDays:
+      return new Date(now.getTime() - 3 * 24 * 60 * 60 * 1000);
+    case TimePeriods.sevenDays:
+      return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    case TimePeriods.oneMonth:
+      return new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
   }
 }
