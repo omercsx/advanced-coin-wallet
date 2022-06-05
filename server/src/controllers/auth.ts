@@ -5,7 +5,7 @@ import { Request, Response } from "express";
 import User from "../models/user";
 import { SuccessResult, FailureResult } from "../models/result";
 import { userLoginValidator, userRegisterValidator } from "../validation/userValidator";
-import { IUser } from "../interfaces/IUser";
+import { IUser, UserRoles } from "../interfaces/IUser";
 import Wallet from "../models/wallet";
 import { RecurringJobModel } from "../models/recurringJob";
 
@@ -74,6 +74,7 @@ export class AuthController {
         password: hashedPassword,
         walletId: userWallet.id,
         fullName,
+        role: UserRoles.user,
       }).save();
 
       if (result != null) {
