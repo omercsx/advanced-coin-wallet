@@ -34,7 +34,6 @@ export class WalletController {
 
   public async Dashboard(request: Request, response: Response) {
     const timePeriod: TimePeriods = request.query.timePeriod as TimePeriods;
-    console.log(timePeriod);
 
     try {
       await dashboardValidator.validateAsync({ timePeriod });

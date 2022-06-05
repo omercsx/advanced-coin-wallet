@@ -59,8 +59,8 @@ export class Api {
         secret: config.secretKey,
         cookie: {
           maxAge: 1000 * 60 * 60 * 2,
-          sameSite: false,
-          secure: false,
+          sameSite: "none",
+          secure: true,
         },
         proxy: true,
       })
