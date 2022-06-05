@@ -13,14 +13,16 @@ You can also see the time-dependent change chart of your portfolio in this appli
 www.coinwallet.dev
 
 Change Logs
+
 1.0.1
-_ Changed login screen password placeholder
-_ Added Responsive design for mobile \* Added label to graph
+ * Changed login screen password placeholder
+ * Added Responsive design for mobile \* Added label to graph
 
 1.0.2
-_ Added Min-max-avg to graph
-_ Rotated date label on graph
+ * Added Min-max-avg to graph
+ * Rotated date label on graph
+
 
 1.0.3
-_ Added 1 - 3 - 7 days and one month graph
-_ Mobile Responsive problem solved.
+ * Added 1 - 3 - 7 days and one month graph
+ * Mobile Responsive problem solved.
