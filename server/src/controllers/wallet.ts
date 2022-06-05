@@ -114,7 +114,7 @@ export class WalletController {
             if (index % 12 === 0) {
               acc.push(curr);
             } else {
-              acc[acc.length - 1].value += curr.value;
+              acc[acc.length - 1].value = (acc[acc.length - 1].value + curr.value) / 2;
               acc[acc.length - 1].maxValue = Math.max(acc[acc.length - 1].maxValue, curr.maxValue);
               acc[acc.length - 1].minValue = Math.min(acc[acc.length - 1].minValue, curr.minValue);
             }
