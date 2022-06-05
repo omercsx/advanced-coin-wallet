@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import moment from "moment";
 import axios from "../api/axios";
-import { Card, Loader, Modal, NumberInput, Select, Text } from "@mantine/core";
+import { Card, Loader, Modal, NumberInput, SegmentedControl, Select, Text } from "@mantine/core";
 import { ResponsiveLine } from "@nivo/line";
 import { BiDollar } from "react-icons/bi";
 
@@ -19,6 +19,7 @@ import { useForm } from "@mantine/form";
 import toast, { Toaster } from "react-hot-toast";
 
 export const Main = () => {
+  const [day, setDay] = useState("oneDay");
   const { state: wallet, dispatch: walletDispatch } = useWallet();
   const { state: authState, dispatch: authDispatch } = useAuth();
   const { state: dashboard, dispatch: dashboardDispatch } = useDashboard();
@@ -27,7 +28,7 @@ export const Main = () => {
     const getWallet = async () => {
       const exchangeResponse = await axios.get("/exchange");
       const response = await axios.get("/wallet");
-      const dashboardResponse = await axios.get("/wallet/dashboard");
+      const dashboardResponse = await axios.get("/wallet/dashboard", { params: { timePeriod: day } });
       if (response?.status === 200 && response?.data?.status) {
         walletDispatch({ type: WALLET_ACTIONS.FETCH_WALLET, payload: response?.data });
       }
@@ -114,7 +115,7 @@ export const Main = () => {
       : exchange?.data?.filter((item: any) => item?.name === "KuCoin")[0].symbols;
 
   return (
-    <div className='flex flex-col-reverse md:flex-row py-6 px-4 justify-between gap-4'>
+    <div className='flex flex-col-reverse lg:flex-row py-6 px-4 justify-between gap-4'>
       <Toaster position='top-right' reverseOrder={false} />
       <Modal
         opened={authState.modalOpen}
@@ -163,13 +164,23 @@ export const Main = () => {
           </button>
         </form>
       </Modal>
-      <div className='flex flex-col w-full md:w-3/5 gap-10'>
-        <Card className='h-96 w-12/12' p={"xs"} shadow='sm' radius={"lg"}>
+      <div className='flex flex-col h-max w-full lg:w-3/5 gap-10'>
+        <Card className='h-[32rem] w-12/12' p='lg' shadow='sm' radius={"lg"}>
+          <SegmentedControl
+            value={day}
+            onChange={setDay}
+            data={[
+              { value: "oneDay", label: "1 Day" },
+              { value: "threeDays", label: "3 Days" },
+              { value: "sevenDays", label: "7 Days" },
+              { value: "oneMonth", label: "1 Month" },
+            ]}
+          />
           <ResponsiveLine
             data={data}
             enableGridX={false}
             enableGridY={false}
-            margin={{ top: 20, right: 20, bottom: 60, left: 50 }}
+            margin={{ top: 20, right: 20, bottom: 100, left: 50 }}
             xScale={{ type: "point" }}
             yScale={{
               type: "linear",
@@ -231,7 +242,7 @@ export const Main = () => {
           />
         </Card>
       </div>
-      <div className='flex flex-col justify-start w-full md:w-2/5 gap-4 items-end'>
+      <div className='flex flex-col justify-start w-full lg:w-2/5 gap-4 items-end'>
         <Card className='w-full h-max' p={"xl"} shadow='sm' radius={"lg"}>
           <div className='flex flex-col gap-4 items-center'>
             <Text className='text-sm'>Total Balance</Text>
@@ -241,7 +252,7 @@ export const Main = () => {
             </div>
           </div>
         </Card>
-        <Card className=' h-max flex flex-col items-center gap-5 w-full' p={"xl"} shadow='sm' radius={"lg"}>
+        <Card className=' h-max flex flex-col items-center gap-5 w-full ' p={"xl"} shadow='sm' radius={"lg"}>
           <Text size='xl'>User's Assets</Text>
           {wallet?.status ? (
             wallet?.data?.cryptos?.map?.((crypto) => (
