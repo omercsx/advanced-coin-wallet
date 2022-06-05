@@ -90,6 +90,7 @@ export const Main = () => {
 
   const handleSubmit = async (values: { exchange: string; crypto: string; amount: number }) => {
     try {
+      console.log(values);
       const response = await axios.post("userCrypto", {
         exchangeName: values.exchange,
         symbol: values.crypto,
@@ -98,6 +99,7 @@ export const Main = () => {
       if (response?.status === 200 && response?.data?.status) {
         walletDispatch({ type: WALLET_ACTIONS.ADD_COIN, payload: response?.data });
         authDispatch({ type: Auth_ACTIONS.MODAL_SWITCH, payload: null });
+        form.reset();
         toast.success(response?.data?.message, { duration: 3000 });
       }
     } catch (error) {
@@ -130,8 +132,11 @@ export const Main = () => {
             allowDeselect
             clearable
             required
+            onChange={(e: any) => {
+              console.log(e);
+              form.setValues({ exchange: e, crypto: "", amount: 0 });
+            }}
             data={exchangeList ? exchangeList : []}
-            {...form.getInputProps("exchange")}
           />
 
           <Select
@@ -183,12 +188,12 @@ export const Main = () => {
             pointBorderWidth={2}
             pointBorderColor={{ from: "serieColor" }}
             pointLabelYOffset={-12}
-            axisBottom= {{
+            axisBottom={{
               tickSize: 5,
               tickPadding: 5,
               tickRotation: -90,
               legendOffset: 36,
-          }}
+            }}
             useMesh={true}
             legends={[
               {
