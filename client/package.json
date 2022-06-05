@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "version": "0.1.0",
+  "version": "1.3.2",
   "proxy": "https://advanced-coin-wallet-f4nvx.ondigitalocean.app",
   "private": true,
   "dependencies": {
