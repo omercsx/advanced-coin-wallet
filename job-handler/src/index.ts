@@ -21,7 +21,7 @@ async function main() {
 async function jobLoop() {
   while (true) {
     await checkAndRunRecurringJobs();
-    await setTimeout(10000);
+    await setTimeout(5000);
   }
 }
 
