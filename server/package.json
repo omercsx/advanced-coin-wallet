@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc -p .",
     "dev": "yarn build && nodemon",
-    "start": "yarn build && node dist/server.js"
+    "start": "node dist/server.js"
   },
   "author": "Arif Damar",
   "license": "ISC",
